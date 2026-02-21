@@ -929,6 +929,13 @@ section:hover .title::after {
   word-break: break-all;
 }
 
+@media (max-width: 768px) {
+  .contact-wrapper {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+}
+
 /* ============================================
    FOOTER
    ============================================ */
