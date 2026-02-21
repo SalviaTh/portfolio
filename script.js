@@ -11,33 +11,31 @@ function cancel() {
   dropdown.classList.remove('active');
 }
 
-// Close dropdown when clicking a mobile nav link
 document.querySelectorAll('.nav-links a').forEach(link => {
   link.addEventListener('click', () => cancel());
 });
 
-// Close dropdown when clicking outside of nav
 document.addEventListener('click', (e) => {
   const nav = document.querySelector('nav');
   if (!nav.contains(e.target)) cancel();
 });
 
 // ============================================
-//  SMOOTH SCROLL — nav links → sections
+//  SMOOTH SCROLL — only <a> tags with # hrefs
 // ============================================
 function scrollToSection(e) {
   const href = e.currentTarget.getAttribute('href');
-  if (!href || href === '#') return;
+  if (!href || !href.startsWith('#')) return;
   const target = document.querySelector(href);
   if (!target) return;
   e.preventDefault();
-  cancel(); // close mobile dropdown if open
+  cancel();
   const navHeight = document.querySelector('nav').offsetHeight;
   const top = target.getBoundingClientRect().top + window.scrollY - navHeight;
   window.scrollTo({ top, behavior: 'smooth' });
 }
 
-// Apply to ALL nav links (desktop + mobile)
+// Only apply to nav anchor links — NOT buttons
 document.querySelectorAll('.home-link a, .nav-links a').forEach(link => {
   link.addEventListener('click', scrollToSection);
 });
@@ -65,14 +63,11 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 // ============================================
-//  SCROLL REVEAL — safe: mark ready, then observe
+//  SCROLL REVEAL
 // ============================================
 const revealContents = document.querySelectorAll('.about .content, .skills .content, .projects .content, .contacts .content');
-
-// Step 1: Add reveal-ready so CSS hides them
 revealContents.forEach(el => el.classList.add('reveal-ready'));
 
-// Step 2: Observe parent sections
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -84,13 +79,23 @@ const revealObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('section').forEach(s => revealObserver.observe(s));
 
-// ============================================
-//  LETS CHAT BUTTON → mailto
-//  Replace 'youremail@gmail.com' with your real email!
-// ============================================
-const letsChatBtn = document.getElementById('lets-chat');
-if (letsChatBtn) {
-  letsChatBtn.addEventListener('click', () => {
-    window.location.href = 'mailto:salviathingbaijam@gmail.com?subject=Hello Salvia!&body=Hi Salvia, I would like to connect with you.';
-  });
+
+function sendMail() {
+  const name = document.getElementById('contact-name')?.value.trim() || '';
+  const email = document.getElementById('contact-email')?.value.trim() || '';
+  const message = document.getElementById('contact-message')?.value.trim() || '';
+
+  if (!name || !email || !message) {
+    alert('Please fill in all fields before sending.');
+    return;
+  }
+
+  const subject = encodeURIComponent('Portfolio Contact from ' + name);
+  const body = encodeURIComponent(
+    'Name: ' + name + '\nEmail: ' + email + '\n\nMessage:\n' + message
+  );
+
+  window.location.href = 'mailto:salviathingbaijam@gmail.com?subject=' + subject + '&body=' + body;
 }
+
+function openMail() { sendMail(); }
