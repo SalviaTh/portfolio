@@ -717,7 +717,7 @@ section:hover .title::after {
   justify-content: flex-end;
 }
 
-.projects .box::before {
+.projects .box::before ,.certificates .box::before{
   content: '';
   position: absolute;
   inset: 0;
@@ -726,13 +726,13 @@ section:hover .title::after {
   transition: opacity 0.4s ease;
 }
 
-.projects .box:hover {
+.projects .box:hover, .certificates .box:hover {
   border-color: rgba(200, 169, 110, 0.4);
   transform: translateY(-8px);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
 }
 
-.projects .box:hover::before {
+.projects .box:hover::before ,.certificates .box::before{
   opacity: 1;
 }
 
@@ -774,12 +774,37 @@ section:hover .title::after {
   opacity: 1;
   transform: translateX(0);
 }
-
+/* ============================================
+   CERTIFICATE SECTION
+   ============================================ */
+.certificates{
+  background-color: var(--bg);
+}
+.certificates .box{
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 40px 32px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color var(--transition), transform var(--transition),
+    box-shadow var(--transition);
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.box-cer img{
+  margin: 2rem 0rem;
+  max-height: 12rem;
+  border-radius: 0.5rem;
+}
 /* ============================================
    CONTACTS SECTION
    ============================================ */
 .contacts {
-  background: var(--bg);
+  background: var(--bg2F);
   padding: 100px 0;
   position: relative;
   overflow: hidden;
