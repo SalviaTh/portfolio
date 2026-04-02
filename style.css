@@ -641,11 +641,22 @@ section:hover .title::after {
 }
 
 .skills .box .per {
-  font-family: var(--font-display);
+  font-family: var(--font-mono);
   font-size: 2.4rem;
   font-weight: 300;
   color: var(--accent);
   line-height: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(60px,1fr));
+
+}
+.skills .box .per .icons{
+  font-size: 0.8rem;
+  text-align: center;
+  padding: 1px;
+}
+.skills .box .per .icons img{
+  margin: 8px;
 }
 
 /* Skill bar */
